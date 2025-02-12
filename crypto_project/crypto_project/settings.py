@@ -16,7 +16,9 @@ from urllib.parse import urlparse
 load_dotenv()
 
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
+CELERY_BROKER_URL  = os.getenv("CELERY_URL")
+CELERY_ACCEPT_CONTEN = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    # 'django_celery_beat', 
+    'django_celery_beat', 
     'crypto_app',
 ]
 
@@ -134,3 +136,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, 
+}

@@ -24,4 +24,5 @@ class IsOrgOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Check if the user owns the Organization that the CryptoPrice belongs to
-        return obj.org.owner == request.user
+        is_owner = obj.org.owner == request.user
+        return is_owner

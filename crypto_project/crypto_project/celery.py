@@ -8,8 +8,7 @@ load_dotenv()
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypto_project.settings')
 
 app = Celery('crypto_project')
-
-# Load task modules from all registered Django app configs.
+app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks(lambda: [n.name for n in apps.get_app_configs()])
 

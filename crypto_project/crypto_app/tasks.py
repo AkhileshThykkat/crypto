@@ -10,6 +10,7 @@ def fetch_crypto_prices():
     eth_price = response['ethereum']['usd']
 
     for org in Organisation.objects.all():
+        # print(org)
         CryptoPrice.objects.create(org=org, symbol="BTC", price=btc_price)
         CryptoPrice.objects.create(org=org, symbol="ETH", price=eth_price)
 
